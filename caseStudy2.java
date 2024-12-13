@@ -16,7 +16,7 @@ public class caseStudy2 {
             switch (menu) {
                 case 1: inputList();   
                     int grandTotal = calculateMenu(15000,22000, 12000, 18000);
-                    System.out.println("total price : " + grandTotal);
+                    System.out.println("total price : " + grandTotal);                   
                     break;
                 case 2: display();
                     break;
@@ -26,7 +26,6 @@ public class caseStudy2 {
                     return;
                 default:
                     System.out.println("Invalid menu. Choose again.");
-                    break;
             }
         }
     }
@@ -81,25 +80,33 @@ public class caseStudy2 {
         static int calculateMenu(int icoffee, int ilatte, int iteh, int inoodles) {
             int allTotal = 0;
             for (int i = 0; i < customer.length; i++) {
+                int customerTotal = 0;
+                int coffeTotal = 0; 
+                int latteTotal = 0; 
+                int tehTotal = 0;   
+                int noodleTotal = 0; 
                 if (customer[i][2] != null) {
                     int coffeeQuantity = Integer.parseInt(customer[i][2]);
-                    allTotal += icoffee * coffeeQuantity;
+                    coffeTotal = icoffee * coffeeQuantity;
                 }
                 if (customer[i][3] != null) {
                     int latteQuantity = Integer.parseInt(customer[i][3]);
-                    allTotal += ilatte * latteQuantity;
+                    latteTotal = ilatte * latteQuantity;
                 }
                 if (customer[i][4] != null) {
                     int tehQuantity = Integer.parseInt(customer[i][4]);
-                    allTotal += iteh * tehQuantity;
+                    tehTotal = iteh * tehQuantity;
                 }
                 if (customer[i][5] != null) {
                     int noodlesQuantity = Integer.parseInt(customer[i][5]);
-                    allTotal += inoodles * noodlesQuantity;   
+                    noodleTotal = inoodles * noodlesQuantity;   
                 }
+                customerTotal = coffeTotal + latteTotal + tehTotal + noodleTotal;
+                allTotal += customerTotal;
+                customer[i][6] = String.valueOf(customerTotal);
+                }
+            return allTotal;  
             }
-            return allTotal;
-        } 
 
         static void display() {
             System.out.println("\n===ORDER LIST===");
@@ -123,4 +130,4 @@ public class caseStudy2 {
             }
             return;
         }
-}    
+}  
