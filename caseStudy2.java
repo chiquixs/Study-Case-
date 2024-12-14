@@ -26,13 +26,6 @@ public class caseStudy2 {
                     return;
                 default:
                     System.out.println("Invalid menu. Choose again.");
-<<<<<<< HEAD
-=======
-                case 2: display();;
-                    break;
-                default: System.out.println("exiting program ");
-                    return;
->>>>>>> e2360306f30f7002e2f402960b90b8c80f0ec9f0
             }
         }
     }
@@ -108,19 +101,11 @@ public class caseStudy2 {
                     int noodlesQuantity = Integer.parseInt(customer[i][5]);
                     noodleTotal = inoodles * noodlesQuantity;   
                 }
-<<<<<<< HEAD
                 customerTotal = coffeTotal + latteTotal + tehTotal + noodleTotal;
                 allTotal += customerTotal;
                 customer[i][6] = String.valueOf(customerTotal);
                 }
             return allTotal;  
-=======
-                    noodleTotal = inoodles * noodlesQuantity;
-                } 
-                customerTotal = coffeTotal + latteTotal + tehTotal + noodleTotal;
-                allTotal += customerTotal;
-                customer[i][6] = String.valueOf(customerTotal); 
->>>>>>> e2360306f30f7002e2f402960b90b8c80f0ec9f0
             }
 
         static void display() {
@@ -145,18 +130,4 @@ public class caseStudy2 {
             }
             return;
         }
-<<<<<<< HEAD
-}  
-=======
-}    
-        static void display(){
-           for (int i = 0; i < customer.length; i++) {
-                System.out.println("Customer Name : " + customer[i][0]);
-                System.out.println("Table Number : " + customer[i][1]);
-                System.out.println("order list : ");
-                System.out.println(customer[i][6]);
-                break;
-            }
-        }
     }
->>>>>>> e2360306f30f7002e2f402960b90b8c80f0ec9f0
