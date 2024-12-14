@@ -1,5 +1,17 @@
 import java.util.Scanner;
 public class caseStudy2 {
+    //penyimpanan nama 
+    static String[] listCustomerName = new String[10];
+
+    //no table,list order (coffe, latte, tea, noodle)
+    static int[][] listOrder = new int[10][5];
+
+    //penyimpanan kalkulasi
+    //calculate per order(kopi,latte,teh,mi), calculate per person
+    static int[][] calculationList = new int[10][5];
+
+    //varible global, buat track kita ada di index berapa
+    static int customerIndex = 0;
 
     static String customer[][] = new String[100][7];
     
@@ -23,28 +35,26 @@ public class caseStudy2 {
             int menu = sc.nextInt();
 
             switch (menu) {
-                case 1: inputList();   
-                    int grandTotal = calculateMenu(15000,22000, 12000, 18000);
-                    System.out.println("total price : " + grandTotal);                   
+                case 1: inputOrder();               
                     break;
-                case 2: display();
+                case 2: displayList();
                     break;
-                case 3:
-                    System.out.println("Exiting Program...");
-                    sc.close();
-                    return;
-                default:
-                    System.out.println("Invalid menu. Choose again.");
-                case 2: display();;
-                    break;
+                
                 default: System.out.println("exiting program ");
                     return;
             }
+
         }
     }
-
-    static void inputList(){
+    
+    static void inputOrder(){
         Scanner sc = new Scanner(System.in);
+        
+        System.out.print("\nInput name of customer : ");
+        listCustomerName[customerIndex] = sc.nextLine();
+        System.out.print("Input number of table : ");
+        listOrder[customerIndex][0] = sc.nextInt(); 
+        
         for (int i = 0; i < customer.length; i++){
             System.out.print("\nenter customer name : ");
             customer[i][0] = sc.nextLine();
@@ -60,93 +70,115 @@ public class caseStudy2 {
         System.out.println("2. Latte - Rp 22000");
         System.out.println("3. Teh tarik - 12000");
         System.out.println("4. Noodles - Rp 18000");
-
-        int chooseMenu;
-            for (int i = 0; i < customer.length; i++){
-            System.out.print("choose a menu (enter number of menu or enter 0 to finish) : ");
-            chooseMenu = sc.nextInt();
+        
+        while(true){
+            System.out.print("\nChoose a menu (enter number of menu, or enter 0 to finish) : ");
+            int chooseMenu = sc.nextInt();
             switch (chooseMenu) {
-                case 0: 
-                        System.out.println("your order is succes!");
-                    return;
-                case 1: System.out.print("enter number of black coffe :");
-                        int coffe = sc.nextInt();
-                        customer[i][2] = String.valueOf(coffe);
+                case 1: 
+                    System.out.print("Enter number of Black Coffe : ");
+                    listOrder[customerIndex][1] += sc.nextInt();
                     break;
-                case 2: System.out.print("enter number of latte : ");
-                        int latte = sc.nextInt();
-                        customer[i][3] = String.valueOf(latte);
+                case 2: 
+                    System.out.print("Enter number of Latte : ");
+                    listOrder[customerIndex][2] += sc.nextInt();
                     break;
-                case 3: System.out.print("enter number of teh tarik : ");
-                        int teh = sc.nextInt();
-                        customer[i][4] = String.valueOf(teh);
+                case 3: 
+                    System.out.print("Enter number of Tarik Tea : ");
+                    listOrder[customerIndex][3] += sc.nextInt();
                     break;
-                case 4: System.out.print("enter number of noodles : ");
-                        int noodles = sc.nextInt();
-                        customer[i][5] = String.valueOf(noodles);
+                case 4: 
+                    System.out.print("Enter number of Fried Noodles : ");
+                    listOrder[customerIndex][4] += sc.nextInt();
                     break;
-                default: System.out.print("menu not avalaible, please enter again");
-                    break;
-                }
+                default: 
+                    if (chooseMenu != 0 ) {
+                        System.out.print("Menu not avalaible, please enter again");
+                    }             
             }
-        }  
-
-        static int calculateMenu(int icoffee, int ilatte, int iteh, int inoodles) {
-            int allTotal = 0;
-            for (int i = 0; i < customer.length; i++) {
-                int customerTotal = 0;
-                int coffeTotal = 0; 
-                int latteTotal = 0; 
-                int tehTotal = 0;   
-                int noodleTotal = 0; 
-                if (customer[i][2] != null) {
-                    int coffeeQuantity = Integer.parseInt(customer[i][2]);
-                    coffeTotal = icoffee * coffeeQuantity;
-                }
-                if (customer[i][3] != null) {
-                    int latteQuantity = Integer.parseInt(customer[i][3]);
-                    latteTotal = ilatte * latteQuantity;
-                }
-                if (customer[i][4] != null) {
-                    int tehQuantity = Integer.parseInt(customer[i][4]);
-                    tehTotal = iteh * tehQuantity;
-                }
-                if (customer[i][5] != null) {
-                    int noodlesQuantity = Integer.parseInt(customer[i][5]);
-                    allTotal += inoodles * noodlesQuantity;   
-                }
-                    noodleTotal = inoodles * noodlesQuantity;
-                } 
-                customerTotal = coffeTotal + latteTotal + tehTotal + noodleTotal;
-                allTotal += customerTotal;
-                customer[i][6] = String.valueOf(customerTotal); 
+            if (chooseMenu == 0) {
+                System.out.println("\nThe order was successfully added");
+                System.out.println("The Total payment is: Rp " + calculationOrder());
+                break;
             }
-            return allTotal;
         } 
+        customerIndex++;
+    }                   
+    
+    static int calculationOrder(){
+        int coffePrice = 15000;
+        int lattePrice = 22000;
+        int tarikTeaPrice = 12000;
+        int noodlePrice = 18000; 
 
-        static void display() {
-            System.out.println("\n===ORDER LIST===");
-            for (int i = 0; i < customer.length; i++) {
-                System.out.println("Customer Name: " + customer[i][0]);
-                System.out.println("Table Number: " + customer[i][1]);
-                System.out.println("Order list: ");
-                if (customer[i][2] != null && !customer[i][2].equals("0")) {
-                System.out.println("Black Coffee x " + customer[i][2] + " = Rp ");
+        //masukin total harga per produknya ke array kalkulasi
+        int totalCoffePrice = listOrder[customerIndex][1] * coffePrice;
+        calculationList[customerIndex][0] = totalCoffePrice;
+
+        int totalLattePrice = listOrder[customerIndex][2] * lattePrice;
+        calculationList[customerIndex][1] = totalLattePrice;
+
+        int totalTarikTeaPrice = listOrder[customerIndex][3] * tarikTeaPrice;
+        calculationList[customerIndex][2] = totalTarikTeaPrice;
+
+        int totalNoodlePrice = listOrder[customerIndex][4] * noodlePrice;
+        calculationList[customerIndex][3] = totalNoodlePrice;
+
+        int totalPrice = totalCoffePrice + totalLattePrice + totalTarikTeaPrice + totalNoodlePrice;
+        calculationList[customerIndex][4] = totalPrice;
+        return totalPrice;
+    }
+        
+    static void displayList(){
+        System.out.println("\n==== ORDER LIST ====");
+        for (int i = 0; i < listCustomerName.length; i++){
+                if (listCustomerName[i] == null) {
+                    System.out.println("");
+                    
+                } else {
+                    System.out.println("Customer Name : " + listCustomerName[i]);
                 }
-                if (customer[i][3] != null && !customer[i][3].equals("0")) {
-                System.out.println("Latte x " + customer[i][3] + " = Rp ");
+                
+                if (listOrder[i][0] == 0) {
+                    break;
+                } else {
+                    System.out.println("Table Number : " + listOrder[i][0]);
                 }
-                if (customer[i][4] != null && !customer[i][4].equals("0")) {
-                System.out.println("Tea x " + customer[i][4] + " = Rp ");
+                
+                System.out.println("Order list : ");
+
+                if (listOrder[i][1] != 0) {
+                    System.out.println("Black Coffee X " + listOrder[i][1] + " = Rp " + calculationList[i][0]);
+                    if (listOrder[i][1] == 0) {
+                        break;
+                    }
                 }
-                if (customer[i][5] != null && !customer[i][5].equals("0")) {
-                System.out.println("Fried Noodle x " + customer[i][5] + " = Rp ");
+                if (listOrder[i][2] != 0) {
+                    System.out.println("Latte X " + listOrder[i][2] + " = Rp " + calculationList[i][1]);
+                    if (listOrder[i][2] == 0) {
+                        break;
+                    }
                 }
+                if (listOrder[i][3] != 0) {
+                    System.out.println("Tarik Tea X " + listOrder[i][3] + " = Rp " + calculationList[i][2]);
+                    if (listOrder[i][3] == 0) {
+                        break;
+                    }
+                }
+                if (listOrder[i][4] != 0) {
+                    System.out.println("Fried Noodle X " + listOrder[i][4] + " = Rp " + calculationList[i][3]);
+                    if (listOrder[i][4] == 0) {
+                        break;
+                    }
+                }
+
+                System.out.println("Total Order Price Rp:" + calculationList[i][4]+"\n");
+                System.out.println("---------------------------------");
+        }
+    }
+}
                 System.out.println("Total Order Price: " + customer[i][6]);
             }
             return;
         }   
     }
-
-
-          
